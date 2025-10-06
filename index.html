@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Editor - Create Websites Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #1e1e1e;
+            color: #d4d4d4;
+        }
+
+        header {
+            background: #252526;
+            padding: 10px 20px;
+            border-bottom: 1px solid #3e3e42;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 18px;
+            color: #cccccc;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            background: #0e639c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: #1177bb;
+        }
+
+        button.secondary {
+            background: #3c3c3c;
+        }
+
+        button.secondary:hover {
+            background: #4c4c4c;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .editor-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #3e3e42;
+        }
+
+        .tabs {
+            display: flex;
+            background: #2d2d30;
+            border-bottom: 1px solid #3e3e42;
+        }
+
+        .tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #2d2d30;
+            color: #969696;
+            border: none;
+            border-right: 1px solid #3e3e42;
+            font-size: 13px;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .tab.active {
+            background: #1e1e1e;
+            color: #ffffff;
+        }
+
+        .tab:hover {
+            background: #2a2a2a;
+        }
+
+        .editor-content {
+            display: none;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .editor-content.active {
+            display: flex;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100%;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border: none;
+            padding: 15px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            outline: none;
+        }
+
+        textarea::selection {
+            background: #264f78;
+        }
+
+        .preview-panel {
+            flex: 1;
+            background: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .preview-header {
+            background: #2d2d30;
+            padding: 10px 20px;
+            border-bottom: 1px solid #3e3e42;
+            color: #cccccc;
+            font-size: 13px;
+        }
+
+        iframe {
+            flex: 1;
+            border: none;
+            background: white;
+        }
+
+        .info {
+            background: #3c3c3c;
+            padding: 8px 20px;
+            font-size: 12px;
+            color: #969696;
+            border-top: 1px solid #3e3e42;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .editor-panel {
+                border-right: none;
+                border-bottom: 1px solid #3e3e42;
+            }
+
+            header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌐 Web Editor</h1>
+        <div class="controls">
+            <button onclick="updatePreview()">▶ Run</button>
+            <button class="secondary" onclick="downloadCode()">💾 Download</button>
+            <button class="secondary" onclick="loadExample()">📄 Load Example</button>
+            <button class="secondary" onclick="clearAll()">🗑️ Clear</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="editor-panel">
+            <div class="tabs">
+                <button class="tab active" onclick="switchTab('html')">HTML</button>
+                <button class="tab" onclick="switchTab('css')">CSS</button>
+                <button class="tab" onclick="switchTab('js')">JavaScript</button>
+            </div>
+            
+            <div id="html-editor" class="editor-content active">
+                <textarea id="html" placeholder="Write your HTML here...">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Welcome to My Website&lt;/h1&gt;
+    &lt;p&gt;Start editing to create your own website!&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
+            </div>
+
+            <div id="css-editor" class="editor-content">
+                <textarea id="css" placeholder="Write your CSS here...">body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+h1 {
+    color: #333;
+    border-bottom: 2px solid #0066cc;
+    padding-bottom: 10px;
+}
+
+p {
+    line-height: 1.6;
+    color: #666;
+}</textarea>
+            </div>
+
+            <div id="js-editor" class="editor-content">
+                <textarea id="js" placeholder="Write your JavaScript here...">// Add your JavaScript code here
+console.log('Hello from the Web Editor!');
+
+// Example: Add click event to buttons
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded successfully!');
+});</textarea>
+            </div>
+        </div>
+
+        <div class="preview-panel">
+            <div class="preview-header">
+                Preview
+            </div>
+            <iframe id="preview"></iframe>
+        </div>
+    </div>
+
+    <div class="info">
+        💡 Tip: Edit HTML, CSS, and JavaScript in the tabs, then click "Run" to see your changes. Your code is automatically saved in your browser.
+    </div>
+
+    <script>
+        // Auto-save to localStorage
+        const htmlEditor = document.getElementById('html');
+        const cssEditor = document.getElementById('css');
+        const jsEditor = document.getElementById('js');
+
+        // Load saved code from localStorage
+        function loadSavedCode() {
+            const savedHtml = localStorage.getItem('webeditor-html');
+            const savedCss = localStorage.getItem('webeditor-css');
+            const savedJs = localStorage.getItem('webeditor-js');
+
+            if (savedHtml) htmlEditor.value = savedHtml;
+            if (savedCss) cssEditor.value = savedCss;
+            if (savedJs) jsEditor.value = savedJs;
+        }
+
+        // Save code to localStorage
+        function saveCode() {
+            localStorage.setItem('webeditor-html', htmlEditor.value);
+            localStorage.setItem('webeditor-css', cssEditor.value);
+            localStorage.setItem('webeditor-js', jsEditor.value);
+        }
+
+        // Auto-save on input
+        htmlEditor.addEventListener('input', saveCode);
+        cssEditor.addEventListener('input', saveCode);
+        jsEditor.addEventListener('input', saveCode);
+
+        // Switch between tabs
+        function switchTab(tabName) {
+            // Update tab buttons
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.classList.add('active');
+
+            // Update editor content
+            document.querySelectorAll('.editor-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName + '-editor').classList.add('active');
+        }
+
+        // Update preview
+        function updatePreview() {
+            const preview = document.getElementById('preview');
+            const html = htmlEditor.value;
+            const css = cssEditor.value;
+            const js = jsEditor.value;
+
+            // Create the complete HTML document
+            const fullHtml = `
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <style>${css}</style>
+                </head>
+                <body>
+                    ${html.replace(/<!DOCTYPE html>|<html[^>]*>|<\/html>|<head[^>]*>|<\/head>|<body[^>]*>|<\/body>/gi, '')}
+                    <script>${js}<\/script>
+                </body>
+                </html>
+            `;
+
+            // Update iframe
+            preview.srcdoc = fullHtml;
+        }
+
+        // Download code as HTML file
+        function downloadCode() {
+            const html = htmlEditor.value;
+            const css = cssEditor.value;
+            const js = jsEditor.value;
+
+            const fullHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Website</title>
+    <style>
+${css}
+    </style>
+</head>
+<body>
+${html.replace(/<!DOCTYPE html>|<html[^>]*>|<\/html>|<head[^>]*>|<\/head>|<body[^>]*>|<\/body>/gi, '')}
+    <script>
+${js}
+    <\/script>
+</body>
+</html>`;
+
+            const blob = new Blob([fullHtml], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'my-website.html';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // Load example website
+        function loadExample() {
+            if (confirm('This will replace your current code with an example. Continue?')) {
+                htmlEditor.value = `<div class="container">
+    <header>
+        <h1>My Awesome Website</h1>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section id="home">
+            <h2>Welcome!</h2>
+            <p>This is a sample website created with the Web Editor.</p>
+            <button onclick="alert('Hello!')">Click Me!</button>
+        </section>
+        
+        <section id="about">
+            <h2>About</h2>
+            <p>You can edit any part of this website and see changes in real-time.</p>
+        </section>
+        
+        <section id="contact">
+            <h2>Contact</h2>
+            <p>Email: hello@example.com</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>&copy; 2024 My Website. Created with Web Editor.</p>
+    </footer>
+</div>`;
+
+                cssEditor.value = `* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+header {
+    background: #333;
+    color: white;
+    padding: 20px;
+}
+
+header h1 {
+    margin-bottom: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+nav a:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+main {
+    padding: 30px;
+}
+
+section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+button {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background: #5568d3;
+}
+
+footer {
+    background: #f4f4f4;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+}`;
+
+                jsEditor.value = `// Add interactivity to your website
+console.log('Website loaded!');
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElement = document.getElementById(targetId);
+        if (targetElement) {
+            targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+});
+
+// Add animation on page load
+window.addEventListener('load', function() {
+    document.querySelectorAll('section').forEach((section, index) => {
+        setTimeout(() => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                section.style.opacity = '1';
+                section.style.transform = 'translateY(0)';
+            }, 50);
+        }, index * 100);
+    });
+});`;
+
+                saveCode();
+                updatePreview();
+            }
+        }
+
+        // Clear all code
+        function clearAll() {
+            if (confirm('This will clear all your code. Continue?')) {
+                htmlEditor.value = '';
+                cssEditor.value = '';
+                jsEditor.value = '';
+                saveCode();
+                updatePreview();
+            }
+        }
+
+        // Initialize
+        loadSavedCode();
+        updatePreview();
+    </script>
+</body>
+</html>
