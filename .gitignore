@@ -1,0 +1,36 @@
+# System files
+desktop.ini
+Thumbs.db
+.DS_Store
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# OS-specific
+ehthumbs.db
+Icon?
+
+# Node/Python
+node_modules/
+__pycache__/
+
+# Ignore common editor/project files
+*.log
+*.tmp
+
+# Media: exclude large video files from Git. Host externally or use Git LFS instead.
+# If you want videos in the repo, remove these lines and consider using Git LFS.
+img/**/*.mp4
+img/**/*.mov
+img/**/*.avi
+*.mp4
+*.mov
+
+# Git LFS metadata (if used)
+.gitattributes
+
+# Optional: ignore archives/backups
+*.zip
+*.tar.gz
+*.rar
