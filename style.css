@@ -1,72 +1,90 @@
-/* Color tokens */
+/* ========== Color tokens & base ========== */
 :root{
   --bg: #0f172a;            /* dark slate */
   --panel: #111827;         /* panel bg */
   --ink: #e5e7eb;           /* light text */
+  --muted: #cbd5e1;
   --accent: #60a5fa;        /* blue */
   --accent-2: #f59e0b;      /* amber */
 }
 
-/* Base typography (font #1) */
 html, body {
   margin: 0;
   padding: 0;
-  font-family: "Inter", system-ui, -apple-system, 
-               Segoe UI, Roboto, Arial, sans-serif;
+  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--ink);
   background:
     linear-gradient(180deg, rgba(17,24,39,0.85), rgba(15,23,42,0.95)),
     url("https://images.unsplash.com/photo-1522199710521-72d69614c702?q=80&w=1200&auto=format&fit=crop");
   background-size: cover;
-  background-attachment: fixed; /* background image requirement satisfied */
+  background-attachment: fixed;
+  overflow-x: hidden; /* prevent horizontal scrollbars from oversized elements */
 }
 
-/* Header */
+img { max-width: 100%; height: auto; display: block; }
+
+/* ========== Header & Nav ========== */
 .site-header {
-  text-align: center;
-  padding: 3rem 1rem 2rem;
+  padding: 0.75rem 1rem;
   border-bottom: 4px solid var(--accent);
-}
-.site-header h1 {
-  margin: 0 0 .25rem 0;
-  font-family: "Merriweather", Georgia, serif; /* font #2 */
-  color: var(--accent);
-}
-.tagline {
-  margin: 0;
-  font-weight: 600;
-  color: var(--accent-2); /* at least two colors applied to text */
+  background: rgba(17,24,39,0.35);
+  backdrop-filter: blur(6px);
 }
 
-/* Navigation */
 .main-nav {
   display: flex;
-  justify-content: space-between;  /* spread links across full width */
-  align-items: center;
-  max-width: 920px;
-  margin: 0 auto 1rem;
-  padding: 0 1rem;               /* add some padding on sides */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: clamp(0.5rem, 2vw, 2rem);
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .nav-link {
-  color: var(--accent);
   text-decoration: none;
-  font-family: "Merriweather", Georgia, serif;
-  font-size: 1.05rem;
-  transition: color 0.2s ease;
+  color: var(--accent);
+  font-weight: 700;
+  padding: .5rem .75rem;
+  border-radius: .5rem;
+  transition: color .15s ease, background-color .15s ease;
 }
 
 .nav-link:first-child {
-  font-size: 1.35rem;            /* slight emphasis for your name */
-  font-weight: 700;
+  font-size: 1.2rem;
   letter-spacing: .2px;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.nav-link:focus {
   color: var(--accent-2);
+  outline: none;
 }
 
-/* Cards demonstrate the box model (margin, padding, border) */
+.nav-link.active {
+  background: rgba(96,165,250,.12);
+  color: var(--ink);
+}
+
+/* ========== Page structure ========== */
+.page-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+.hero h1 {
+  font-family: "Merriweather", Georgia, serif;
+  color: var(--accent);
+  margin: 0 0 .25rem 0;
+}
+
+.hero p {
+  margin: 0 0 1rem 0;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Card utility (if used elsewhere) */
 .card {
   background: var(--panel);
   margin: 1.25rem auto;
@@ -77,86 +95,7 @@ html, body {
   box-shadow: 0 6px 18px rgba(0,0,0,.25);
 }
 
-/* Intro block layout */
-.intro {
-  display: grid;                 /* layout with grid */
-  grid-template-columns: 140px 1fr;
-  gap: 1rem;
-  align-items: center;
-}
-.avatar {
-  width: 140px;
-  height: 140px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid var(--accent);
-}
-h2 {
-  font-family: "Merriweather", Georgia, serif; /* headings use font #2 */
-  color: var(--accent);
-  margin-top: 0;
-}
-
-/* Hobbies list uses CSS Grid (layout requirement) */
-.hobbies-list {
-  list-style: none;
-  padding: 0;
-  margin: .5rem 0 0;
-  display: grid;                        /* grid layout requirement satisfied */
-  grid-template-columns: repeat(auto-fit, 
-                                minmax(220px, 1fr));
-  gap: .75rem;
-}
-.hobbies-list li {
-  background: #0b1220;
-  border: 1px dashed rgba(229,231,235,.2);
-  padding: .75rem .9rem;
-  border-radius: 10px;
-}
-
-/* Table styling */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  overflow: hidden;
-  border-radius: 10px;
-}
-thead th {
-  background: #0b1220;
-  color: var(--accent-2);
-  text-align: left;
-  padding: .7rem .8rem;
-}
-tbody td {
-  padding: .7rem .8rem;
-  border-top: 1px solid rgba(229,231,235,.12);
-}
-
-/* Footer uses a third font style (monospace) */
-.site-footer {
-  font-family: "Source Code Pro", ui-monospace, 
-               SFMono-Regular, Menlo, monospace; /* font #3 */
-  text-align: center;
-  padding: 2rem 1rem 3rem;
-  color: #cbd5e1;
-}
-.site-footer a {
-  color: var(--accent);
-  text-decoration: none;
-}
-.site-footer a:hover { text-decoration: underline; }
-
-/* Accessible caption hiding (screen-reader only) */
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0); 
-  white-space: nowrap; border: 0;
-}
-/* --- universal image safety --- */
-img { max-width: 100%; height: auto; display: block; }
-
-/* --- gallery grid + consistent image size --- */
+/* ========== Gallery ========== */
 .gallery {
   margin-top: 24px;
   display: grid;
@@ -166,62 +105,45 @@ img { max-width: 100%; height: auto; display: block; }
 
 .gallery img {
   width: 100%;
-  aspect-ratio: 4 / 3;   /* keeps tiles consistent */
-  object-fit: cover;     /* crops instead of stretching */
-  border-radius: 8px;
-  transition: transform 0.2s ease;
+  aspect-ratio: 4 / 3;   /* consistent tiles */
+  object-fit: cover;     /* crop without stretch */
+  border-radius: 10px;
+  box-shadow: 0 6px 16px rgba(0,0,0,.25);
+  transition: transform 0.2s ease, box-shadow .2s ease;
+  cursor: zoom-in;
 }
-
 .gallery img:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
 }
+.gallery img:active { transform: scale(.98); }
 
-.gallery video {
-  width: 100%;
-  aspect-ratio: 4 / 3;   /* keeps video tiles consistent with images */
-  object-fit: cover;
-  border-radius: 8px;
-  transition: transform 0.2s ease;
-}
-
-.gallery video:hover {
-  transform: scale(1.05);
-}
-
-/* Special styling for taller images like Roger & Ollie */
+/* Taller portrait images (optional helper) */
 .gallery .tall-image {
-  aspect-ratio: 3 / 4;   /* Taller ratio to show more of the vertical photo */
+  aspect-ratio: 3 / 4;
   object-fit: cover;
 }
 
-/* Featured photo section */
+/* ========== Featured photo (optional section) ========== */
 .featured-photo {
   margin: 3rem auto;
   max-width: 920px;
   padding: 0 1rem;
   text-align: center;
 }
-
 .featured-photo h2 {
   color: var(--accent);
   font-family: "Merriweather", Georgia, serif;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
 }
-
-.photo-container {
-  position: relative;
-  display: inline-block;
-  max-width: 100%;
-}
-
+.photo-container { position: relative; display: inline-block; max-width: 100%; }
 .full-photo {
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   height: auto;
   border-radius: 12px;
   box-shadow: 0 8px 24px rgba(0,0,0,.3);
 }
-
 .photo-number {
   position: absolute;
   bottom: 16px;
@@ -239,40 +161,70 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 1.2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,.4);
 }
-
 .photo-caption {
   margin-top: 1rem;
   font-style: italic;
   color: var(--accent-2);
-  font-size: 1.1rem;
+  font-size: 1.05rem;
 }
 
-/* prevent horizontal scrollbars from oversized elements */
-html, body { overflow-x: hidden; }
+/* ========== Footer (if used) ========== */
+.site-footer {
+  font-family: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, monospace;
+  text-align: center;
+  padding: 2rem 1rem 3rem;
+  color: #cbd5e1;
+}
+.site-footer a { color: var(--accent); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
 
-/* --- NAV + HEADER UPDATE --- */
-.site-header { padding: 0.75rem 1rem; }
-
-.main-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;   /* spreads links across */
-  gap: clamp(0.5rem, 2vw, 2rem);
-  max-width: 1100px;
-  margin: 0 auto;
+/* Screen-reader only helper */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
 }
 
-.nav-link {
-  text-decoration: none;
-  font-weight: 600;
-  padding: .5rem .75rem;
-  border-radius: .5rem;
+/* ========== Lightbox ========== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  display: none;               /* hidden by default */
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 2rem;
+}
+.lightbox.is-open { display: flex; }
+
+.lightbox img {
+  max-width: 92vw;
+  max-height: 92vh;
+  width: auto;
+  height: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,.6);
+  border-radius: 12px;
 }
 
-.nav-link:hover,
-.nav-link:focus {
-  text-decoration: underline;
-  outline: none;
+.lightbox__close {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: 34px;
+  line-height: 1;
+  color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 10px;
 }
 
+body.modal-open { overflow: hidden; } /* prevent page scroll when open */
 
+/* ========== Small tweaks for very narrow screens ========== */
+@media (max-width: 420px) {
+  .nav-link { padding: .4rem .6rem; font-weight: 600; }
+  .gallery { gap: 12px; }
+}

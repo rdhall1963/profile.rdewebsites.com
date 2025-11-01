@@ -6,6 +6,7 @@
   <title>Marriage — Roger Hall</title>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <header class="site-header">
     <nav class="main-nav">
@@ -23,23 +24,68 @@
       <p>A few favorite moments.</p>
     </section>
 
-   <section class="gallery">
-  <img src="img/Wedding/20220423_165158.jpg" alt="Wedding 165158" loading="lazy">
-  <img src="img/Wedding/20220423_165238.jpg" alt="Wedding 165238" loading="lazy">
-  <img src="img/Wedding/20220423_165450.jpg" alt="Wedding 165450" loading="lazy">
-  <img src="img/Wedding/20220423_165508.jpg" alt="Wedding 165508" loading="lazy">
-  <img src="img/Wedding/20220423_165616.jpg" alt="Wedding 165616" loading="lazy">
-  <img src="img/Wedding/20220423_165617.jpg" alt="Wedding 165617" loading="lazy">
-  <img src="img/Wedding/20220423_180515.jpg" alt="Wedding 180515" loading="lazy">
-  <img src="img/Wedding/20220423_180518.jpg" alt="Wedding 180518" loading="lazy">
-  <img src="img/Wedding/20220423_180522.jpg" alt="Wedding 180522" loading="lazy">
-  <img src="img/Wedding/20220423_180534.jpg" alt="Wedding 180534" loading="lazy">
-  <img src="img/Wedding/20220423_180603.jpg" alt="Wedding 180603" loading="lazy">
-  <img src="img/Wedding/Marriage.jpg" alt="Marriage" loading="lazy">
-  <img src="img/Wedding/Me%20%26%20Pati%20in%20church.jpg" alt="Me &amp; Pati in church" loading="lazy">
-  <!-- add more as needed -->
-</section>
-
+    <section class="gallery">
+      <img src="img/Wedding/20220423_165158.jpg" alt="Wedding 165158" loading="lazy">
+      <img src="img/Wedding/20220423_165238.jpg" alt="Wedding 165238" loading="lazy">
+      <img src="img/Wedding/20220423_165450.jpg" alt="Wedding 165450" loading="lazy">
+      <img src="img/Wedding/20220423_165508.jpg" alt="Wedding 165508" loading="lazy">
+      <img src="img/Wedding/20220423_165616.jpg" alt="Wedding 165616" loading="lazy">
+      <img src="img/Wedding/20220423_165617.jpg" alt="Wedding 165617" loading="lazy">
+      <img src="img/Wedding/20220423_180515.jpg" alt="Wedding 180515" loading="lazy">
+      <img src="img/Wedding/20220423_180518.jpg" alt="Wedding 180518" loading="lazy">
+      <img src="img/Wedding/20220423_180522.jpg" alt="Wedding 180522" loading="lazy">
+      <img src="img/Wedding/20220423_180534.jpg" alt="Wedding 180534" loading="lazy">
+      <img src="img/Wedding/20220423_180603.jpg" alt="Wedding 180603" loading="lazy">
+      <img src="img/Wedding/Marriage.jpg" alt="Marriage" loading="lazy">
+      <img src="img/Wedding/Me%20%26%20Pati%20in%20church.jpg" alt="Me &amp; Pati in church" loading="lazy">
+      <!-- Add more as needed -->
+    </section>
   </main>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Close (Esc)">&times;</button>
+    <img id="lightbox-img" alt="">
+  </div>
+
+  <!-- Lightbox JS -->
+  <script>
+    (function () {
+      const gallery = document.querySelector('.gallery');
+      const overlay = document.getElementById('lightbox');
+      const bigImg  = document.getElementById('lightbox-img');
+      const closeBtn = overlay.querySelector('.lightbox__close');
+
+      if (!gallery) return;
+
+      // Open on any gallery image click
+      gallery.addEventListener('click', (e) => {
+        const img = e.target.closest('img');
+        if (!img) return;
+
+        bigImg.src = img.dataset.full || img.src; // use data-full if provided
+        bigImg.alt = img.alt || '';
+        overlay.classList.add('is-open');
+        document.body.classList.add('modal-open');
+        closeBtn.focus();
+      });
+
+      // Close helpers
+      function closeLightbox() {
+        overlay.classList.remove('is-open');
+        document.body.classList.remove('modal-open');
+        bigImg.removeAttribute('src');
+      }
+      closeBtn.addEventListener('click', closeLightbox);
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) closeLightbox();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
+          closeLightbox();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
