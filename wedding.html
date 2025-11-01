@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Marriage — Roger Hall</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css" /> 
 </head>
 
 <body>
@@ -38,49 +38,54 @@
       <img src="img/Wedding/20220423_180603.jpg" alt="Wedding 180603" loading="lazy">
       <img src="img/Wedding/Marriage.jpg" alt="Marriage" loading="lazy">
       <img src="img/Wedding/Me%20%26%20Pati%20in%20church.jpg" alt="Me &amp; Pati in church" loading="lazy">
-      <!-- Add more as needed -->
-    </section>
+      </section>
   </main>
 
-  <!-- Lightbox overlay -->
   <div id="lightbox" class="lightbox" aria-hidden="true">
     <button class="lightbox__close" aria-label="Close (Esc)">&times;</button>
     <img id="lightbox-img" alt="">
   </div>
 
-  <!-- Lightbox JS -->
   <script>
     (function () {
       const gallery = document.querySelector('.gallery');
       const overlay = document.getElementById('lightbox');
-      const bigImg  = document.getElementById('lightbox-img');
+      const bigImg  = document.getElementById('lightbox-img');
       const closeBtn = overlay.querySelector('.lightbox__close');
 
       if (!gallery) return;
 
-      // Open on any gallery image click
+      // The key event listener: When an image is clicked, it populates the lightbox and opens it.
       gallery.addEventListener('click', (e) => {
         const img = e.target.closest('img');
         if (!img) return;
 
-        bigImg.src = img.dataset.full || img.src; // use data-full if provided
-        bigImg.alt = img.alt || '';
+        // 1. Set the source (src) of the large image to the source of the clicked image
+        bigImg.src = img.src; 
+        bigImg.alt = img.alt || 'Full-screen gallery image';
+
+        // 2. Add the 'is-open' class to the overlay to display it (as defined in your CSS)
         overlay.classList.add('is-open');
         document.body.classList.add('modal-open');
-        closeBtn.focus();
+        closeBtn.focus(); // Good for accessibility: focus on the close button
       });
 
-      // Close helpers
+      // Close helper function (called by button, overlay click, or Escape key)
       function closeLightbox() {
+        // 1. Remove the classes to hide the lightbox and re-enable body scroll
         overlay.classList.remove('is-open');
         document.body.classList.remove('modal-open');
-        bigImg.removeAttribute('src');
+        
+        // 2. Clear the image source to stop memory leaks
+        bigImg.removeAttribute('src'); 
       }
-      closeBtn.addEventListener('click', closeLightbox);
-      overlay.addEventListener('click', (e) => {
+      
+      // Close Listeners
+      closeBtn.addEventListener('click', closeLightbox); // Close button (X) click
+      overlay.addEventListener('click', (e) => { // Click on the dark background area
         if (e.target === overlay) closeLightbox();
       });
-      document.addEventListener('keydown', (e) => {
+      document.addEventListener('keydown', (e) => { // Escape key press
         if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
           closeLightbox();
         }

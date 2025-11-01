@@ -1,207 +1,23 @@
-/* ========== Color tokens & base ========== */
-:root{
-  --bg: #0f172a;            /* dark slate */
-  --panel: #111827;         /* panel bg */
-  --ink: #e5e7eb;           /* light text */
-  --muted: #cbd5e1;
-  --accent: #60a5fa;        /* blue */
-  --accent-2: #f59e0b;      /* amber */
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--ink);
-  background:
-    linear-gradient(180deg, rgba(17,24,39,0.85), rgba(15,23,42,0.95)),
-    url("https://images.unsplash.com/photo-1522199710521-72d69614c702?q=80&w=1200&auto=format&fit=crop");
-  background-size: cover;
-  background-attachment: fixed;
-  overflow-x: hidden; /* prevent horizontal scrollbars from oversized elements */
-}
-
-img { max-width: 100%; height: auto; display: block; }
-
-/* ========== Header & Nav ========== */
-.site-header {
-  padding: 0.75rem 1rem;
-  border-bottom: 4px solid var(--accent);
-  background: rgba(17,24,39,0.35);
-  backdrop-filter: blur(6px);
-}
-
-.main-nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: clamp(0.5rem, 2vw, 2rem);
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: var(--accent);
-  font-weight: 700;
-  padding: .5rem .75rem;
-  border-radius: .5rem;
-  transition: color .15s ease, background-color .15s ease;
-}
-
-.nav-link:first-child {
-  font-size: 1.2rem;
-  letter-spacing: .2px;
-}
-
-.nav-link:hover,
-.nav-link:focus {
-  color: var(--accent-2);
-  outline: none;
-}
-
-.nav-link.active {
-  background: rgba(96,165,250,.12);
-  color: var(--ink);
-}
-
-/* ========== Page structure ========== */
-.page-wrap {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 1.25rem 1rem 3rem;
-}
-
-.hero h1 {
-  font-family: "Merriweather", Georgia, serif;
-  color: var(--accent);
-  margin: 0 0 .25rem 0;
-}
-
-.hero p {
-  margin: 0 0 1rem 0;
-  color: var(--muted);
-  font-weight: 600;
-}
-
-/* Card utility (if used elsewhere) */
-.card {
-  background: var(--panel);
-  margin: 1.25rem auto;
-  padding: 1.25rem;
-  border: 1px solid rgba(229,231,235,.15);
-  border-radius: 12px;
-  width: min(920px, 92%);
-  box-shadow: 0 6px 18px rgba(0,0,0,.25);
-}
-
-/* ========== Gallery ========== */
-.gallery {
-  margin-top: 24px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 16px;
-}
-
-.gallery img {
-  width: 100%;
-  aspect-ratio: 4 / 3;   /* consistent tiles */
-  object-fit: cover;     /* crop without stretch */
-  border-radius: 10px;
-  box-shadow: 0 6px 16px rgba(0,0,0,.25);
-  transition: transform 0.2s ease, box-shadow .2s ease;
-  cursor: zoom-in;
-}
-.gallery img:hover {
-  transform: translateY(-2px) scale(1.03);
-  box-shadow: 0 10px 24px rgba(0,0,0,.35);
-}
-.gallery img:active { transform: scale(.98); }
-
-/* Taller portrait images (optional helper) */
-.gallery .tall-image {
-  aspect-ratio: 3 / 4;
-  object-fit: cover;
-}
-
-/* ========== Featured photo (optional section) ========== */
-.featured-photo {
-  margin: 3rem auto;
-  max-width: 920px;
-  padding: 0 1rem;
-  text-align: center;
-}
-.featured-photo h2 {
-  color: var(--accent);
-  font-family: "Merriweather", Georgia, serif;
-  margin-bottom: 1.25rem;
-}
-.photo-container { position: relative; display: inline-block; max-width: 100%; }
-.full-photo {
-  width: 100%;
-  max-width: 520px;
-  height: auto;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0,0,0,.3);
-}
-.photo-number {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  background: var(--accent);
-  color: white;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: "Merriweather", Georgia, serif;
-  font-weight: 700;
-  font-size: 1.2rem;
-  box-shadow: 0 4px 12px rgba(0,0,0,.4);
-}
-.photo-caption {
-  margin-top: 1rem;
-  font-style: italic;
-  color: var(--accent-2);
-  font-size: 1.05rem;
-}
-
-/* ========== Footer (if used) ========== */
-.site-footer {
-  font-family: "Source Code Pro", ui-monospace, SFMono-Regular, Menlo, monospace;
-  text-align: center;
-  padding: 2rem 1rem 3rem;
-  color: #cbd5e1;
-}
-.site-footer a { color: var(--accent); text-decoration: none; }
-.site-footer a:hover { text-decoration: underline; }
-
-/* Screen-reader only helper */
-.sr-only {
-  position: absolute;
-  width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0,0,0,0);
-  white-space: nowrap; border: 0;
-}
+/* ... rest of your CSS ... */
 
 /* ========== Lightbox ========== */
 .lightbox {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.85);
-  display: none;               /* hidden by default */
+  background: rgba(0,0,0,.85); /* Dark, slightly transparent background */
+  display: none;               /* HIDDEN by default */
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 1000;              /* Ensure it's on top of everything */
   padding: 2rem;
 }
-.lightbox.is-open { display: flex; }
+.lightbox.is-open { 
+  display: flex; /* Makes the Lightbox fill the screen and become visible */
+}
 
 .lightbox img {
-  max-width: 92vw;
-  max-height: 92vh;
+  max-width: 92vw;    /* Max width of the viewport (less padding) */
+  max-height: 92vh;   /* Max height of the viewport (less padding) */
   width: auto;
   height: auto;
   box-shadow: 0 10px 40px rgba(0,0,0,.6);
@@ -221,10 +37,6 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 6px 10px;
 }
 
-body.modal-open { overflow: hidden; } /* prevent page scroll when open */
-
-/* ========== Small tweaks for very narrow screens ========== */
-@media (max-width: 420px) {
-  .nav-link { padding: .4rem .6rem; font-weight: 600; }
-  .gallery { gap: 12px; }
+body.modal-open { 
+  overflow: hidden; /* Prevents the main page from scrolling while the lightbox is open */
 }
