@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Roger Hall — Profile</title>
 
-  <!-- Link to your CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Header with name + short tagline -->
+  
   <header class="site-header">
     <nav class="main-nav">
-      <a href="profile.html" class="nav-link">Roger Hall</a>
+      <a href="index.html" class="nav-link active">Roger Hall</a>
+      <a href="https://rdewebsites.com" class="nav-link" target="_blank" rel="noopener"
+        aria-label="RDE Websites (opens in a new tab)">RDE Websites</a>
       <a href="wedding.html" class="nav-link">Marriage</a>
       <a href="pets.html" class="nav-link">My Pets</a>
       <a href="multnomah-falls.html" class="nav-link">Multnomah Falls</a>
@@ -21,34 +22,31 @@
   </header>
 
   <main>
-    <!-- Profile image + About Me -->
     <section class="intro card" aria-labelledby="about-title">
       <img
         class="avatar"
         src="img/roger-and-ollie.jpg"
         alt="Portrait of Roger Hall with Ollie"
-        loading="lazy"
+        onerror="this.src='https://picsum.photos/300?grayscale';"
       />
       <div>
         <h2 id="about-title">About Me</h2>
         <p>
-          I’m a computer science student who has built 2 websites & am building more including a game website & a website editor. I do my own SEO, SEM & social media.
+          I’m a computer science student who has built websites before I came to MHCC. I do my own seo, graphics, films, edits & social media & google & alignment marketing.  Hire teams from this school when you all send me too many project orders. I charge $100 per website page & optional $50 a month maintenance fee if they are websites I built.  Otherwise $50 an hour tech fees. I can fix any websites you bought.
         </p>
       </div>
     </section>
 
-    <!-- Interests -->
     <section class="hobbies card" aria-labelledby="hobbies-title">
       <h2 id="hobbies-title">Interests</h2>
       <ul class="hobbies-list">
-        <li>Web Development</li>
+        <li>Web Developement</li>
         <li>Filming & Editing</li>
         <li>SEO research & Analytics</li>
         <li>Social Media Marketing</li>
       </ul>
     </section>
 
-    <!-- Schedule table -->
     <section class="schedule card" aria-labelledby="schedule-title">
       <h2 id="Course-title">Fall Term</h2>
       <table>
@@ -74,14 +72,13 @@
           <tr>
             <td>ISTM133P-H1</td>
             <td>Introduction to Python</td>
-            <td>Semrush Research</td>
+            <td>Hiking</td>
           </tr>
         </tbody>
       </table>
     </section>
   </main>
 
-  <!-- Footer with email + social links -->
   <footer class="site-footer">
     <p>
       Contact:
