@@ -4,9 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Marriage — Roger Hall</title>
-  <link rel="stylesheet" href="style.css" /> 
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
   <header class="site-header">
     <nav class="main-nav">
@@ -24,102 +23,23 @@
       <p>A few favorite moments.</p>
     </section>
 
-    <section class="gallery" aria-label="Wedding photo gallery">
-      <img src="img/Wedding/20220423_165158.jpg" alt="Wedding 165158" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_165238.jpg" alt="Wedding 165238" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_165450.jpg" alt="Wedding 165450" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_165508.jpg" alt="Wedding 165508" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_165616.jpg" alt="Wedding 165616" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_165617.jpg" alt="Wedding 165617" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_180515.jpg" alt="Wedding 180515" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_180518.jpg" alt="Wedding 180518" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_180522.jpg" alt="Wedding 180522" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_180534.jpg" alt="Wedding 180534" loading="lazy" tabindex="0">
-      <img src="img/Wedding/20220423_180603.jpg" alt="Wedding 180603" loading="lazy" tabindex="0">
-      <img src="img/Wedding/Marriage.jpg" alt="Marriage" loading="lazy" tabindex="0">
-      <img src="img/Wedding/Me%20%26%20Pati%20in%20church.jpg" alt="Me &amp; Pati in church" loading="lazy" tabindex="0">
-    </section>
+   <section class="gallery">
+  <img src="img/Wedding/20220423_165158.jpg" alt="Wedding 165158" loading="lazy">
+  <img src="img/Wedding/20220423_165238.jpg" alt="Wedding 165238" loading="lazy">
+  <img src="img/Wedding/20220423_165450.jpg" alt="Wedding 165450" loading="lazy">
+  <img src="img/Wedding/20220423_165508.jpg" alt="Wedding 165508" loading="lazy">
+  <img src="img/Wedding/20220423_165616.jpg" alt="Wedding 165616" loading="lazy">
+  <img src="img/Wedding/165617.jpg" alt="Wedding 165617" loading="lazy">
+  <img src="img/Wedding/20220423_180515.jpg" alt="Wedding 180515" loading="lazy">
+  <img src="img/Wedding/20220423_180518.jpg" alt="Wedding 180518" loading="lazy">
+  <img src="img/Wedding/20220423_180522.jpg" alt="Wedding 180522" loading="lazy">
+  <img src="img/Wedding/20220423_180534.jpg" alt="Wedding 180534" loading="lazy">
+  <img src="img/Wedding/20220423_180603.jpg" alt="Wedding 180603" loading="lazy">
+  <img src="img/Wedding/Marriage.jpg" alt="Marriage" loading="lazy">
+  <img src="img/Wedding/Me%20%26%20Pati%20in%20church.jpg" alt="Me &amp; Pati in church" loading="lazy">
+  <!-- add more as needed -->
+</section>
+
   </main>
-
-  <!-- Lightbox overlay (scoped to this page only) -->
-  <div id="lightbox" class="lightbox" aria-hidden="true" aria-live="polite">
-    <button class="lightbox__close" aria-label="Close (Esc)">&times;</button>
-    <img id="lightbox-img" alt="" />
-  </div>
-
-  <script>
-    // Safe, per-user lightbox. No history or storage changes, no persistent global state.
-    (function () {
-      document.addEventListener('DOMContentLoaded', function () {
-        const gallery = document.querySelector('.gallery');
-        const overlay = document.getElementById('lightbox');
-        const bigImg  = document.getElementById('lightbox-img');
-        const closeBtn = overlay.querySelector('.lightbox__close');
-
-        if (!gallery || !overlay || !bigImg) return; // nothing to do
-
-        function openLightbox(imgEl) {
-          // Use a copy of the src so we don't accidentally change other elements
-          const src = imgEl.getAttribute('src');
-          const alt = imgEl.getAttribute('alt') || 'Gallery image';
-
-          bigImg.src = src;
-          bigImg.alt = alt;
-
-          overlay.classList.add('is-open');
-          overlay.setAttribute('aria-hidden', 'false');
-          // Lock scroll for this user only
-          document.body.classList.add('modal-open');
-
-          // Focus management
-          closeBtn.focus();
-        }
-
-        function closeLightbox() {
-          overlay.classList.remove('is-open');
-          overlay.setAttribute('aria-hidden', 'true');
-          document.body.classList.remove('modal-open');
-
-          // Clear src to help free memory and prevent the image from remaining loaded
-          bigImg.removeAttribute('src');
-          bigImg.removeAttribute('alt');
-        }
-
-        // Click handler on the gallery — works for mouse and touch
-        gallery.addEventListener('click', function (e) {
-          const img = e.target.closest('img');
-          if (!img || !gallery.contains(img)) return;
-          e.preventDefault();
-          openLightbox(img);
-        });
-
-        // Keyboard support: enter or space on focused image
-        gallery.addEventListener('keydown', function (e) {
-          const key = e.key;
-          const target = e.target;
-          if ((key === 'Enter' || key === ' ') && target && target.tagName === 'IMG') {
-            e.preventDefault();
-            openLightbox(target);
-          }
-        });
-
-        // Close by clicking the close button or overlay background
-        closeBtn.addEventListener('click', closeLightbox);
-        overlay.addEventListener('click', function (e) {
-          if (e.target === overlay) closeLightbox();
-        });
-
-        // Close by Escape key
-        document.addEventListener('keydown', function (e) {
-          if (e.key === 'Escape' && overlay.classList.contains('is-open')) {
-            closeLightbox();
-          }
-        });
-
-        // Ensure clicking images does not change the URL or site state for other users
-        // No use of localStorage, sessionStorage, cookies, or location.hash here.
-      });
-    })();
-  </script>
 </body>
 </html>
