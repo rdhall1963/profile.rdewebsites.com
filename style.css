@@ -1,79 +1,186 @@
-/* ======== Global Reset ======== */
+/* ========== Color tokens & base ========== */
+:root {
+  --bg: #fafafa;         /* Light Page Background */
+  --panel: #ffffff;      /* White Card Background */
+  --ink: #333;           /* Dark Text */
+  --muted: #555;
+  --accent: #007bff;      /* Primary Blue Accent */
+  --accent-2: #28a745;    /* Secondary Green Accent */
+}
+
+/* ======== Global Reset & Body Styling ======== */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: "Segoe UI", Arial, sans-serif;
   line-height: 1.6;
-  color: #333;
-  background-color: #fafafa;
+  color: var(--ink);
+  background-color: var(--bg);
+  /* Remove fixed background image */
+  background-attachment: scroll;
+  overflow-x: hidden;
 }
 
-/* ======== Header ======== */
-header {
-  background: #2c3e50;
-  color: white;
-  text-align: center;
-  padding: 20px 0;
+img { max-width: 100%; height: auto; display: block; }
+h1, h2 { font-family: Arial, sans-serif; }
+
+/* ======== Header & Nav ======== */
+.site-header {
+  padding: 0.75rem 1rem;
+  background: var(--panel); /* White header background */
+  border-bottom: 3px solid var(--accent);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-header h1 {
-  font-size: 2em;
-  letter-spacing: 1px;
-}
-
-/* ======== Navigation ======== */
-nav {
-  background: #34495e;
+.main-nav {
   display: flex;
-  justify-content: center;
-  gap: 25px;
-  padding: 10px 0;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1rem;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-nav a {
-  color: #fff;
+.nav-link {
   text-decoration: none;
+  color: var(--accent); /* Blue accent for links */
+  font-weight: 600;
+  padding: .5rem .75rem;
+  border-radius: .3rem;
+  transition: background-color .2s;
+}
+
+.nav-link:first-child {
+  font-size: 1.2rem;
+}
+
+.nav-link.active {
+  background: var(--accent);
+  color: #fff; /* White text for active page */
+}
+
+.nav-link:hover,
+.nav-link:focus {
+  background-color: rgba(0, 123, 255, 0.1);
+  outline: none;
+}
+
+/* ======== Main Content Wrapper ======== */
+.page-wrap, main {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 1.25rem 1rem 3rem;
+}
+
+/* ======== Card Pattern (Used for Intro, Hobbies, Schedule) ======== */
+.card {
+  background: var(--panel); /* White card background */
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  border: 1px solid rgba(0,0,0,.1);
+  border-radius: 8px;
+  width: min(920px, 92%);
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+}
+
+/* ======== Intro Section Layout (Profile Page) ======== */
+.intro {
+  display: grid;
+  grid-template-columns: 140px 1fr; /* Fixed 140px for avatar, 1fr for text */
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+.avatar {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%; /* Circle avatar */
+  object-fit: cover;
+  border: 3px solid var(--accent);
+}
+
+/* ======== Hobbies Section Layout ======== */
+.hobbies-list {
+  list-style: none; /* Remove default bullets */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin: 0;
+  padding: 0;
+}
+.hobbies-list li {
+  color: var(--ink);
   font-weight: 500;
 }
-
-nav a:hover {
-  text-decoration: underline;
+.hobbies-list li::before {
+  content: '★ ';
+  color: var(--accent-2); /* Green star bullet */
 }
 
-/* ======== Page Wrapper ======== */
-.page-wrap {
-  max-width: 1000px;
-  margin: 30px auto;
-  padding: 0 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+/* ======== Schedule Table Styling ======== */
+.schedule table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.95rem;
+}
+.schedule th, .schedule td {
+  border: 1px solid rgba(0,0,0,.1);
+  padding: 10px 12px;
+  text-align: left;
+}
+.schedule th {
+  background: rgba(0, 123, 255, 0.1);
+  color: var(--accent);
 }
 
-/* ======== Headings ======== */
-h2 {
-  color: #2c3e50;
-  margin-bottom: 10px;
+/* ======== Footer Styling ======== */
+.site-footer {
+  text-align: center;
+  padding: 2rem 1rem 3rem;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
+.site-footer a { color: var(--accent); text-decoration: none; }
+.site-footer a:hover { text-decoration: underline; }
 
-/* ======== Paragraphs ======== */
-p {
-  margin-bottom: 15px;
-}
-
-/* ======== Image Gallery (static, no lightbox) ======== */
+/* ======== Gallery Layout ======== */
 .gallery {
+  margin-top: 24px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 15px;
-  margin: 20px 0;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
 }
 
 .gallery img {
   width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
   border-radius: 8px;
-  transition: transform 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0,0,0,.15);
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+.gallery img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 12px rgba(0,0,0,.2);
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .intro {
+    grid-template-columns: 1fr; /* Stack avatar and text vertically */
+    text-align: center;
+  }
+  .avatar {
+    margin: 0 auto;
+  }
+  .main-nav {
+    justify-content: center;
+  }
